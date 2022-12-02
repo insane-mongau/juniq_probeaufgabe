@@ -1,0 +1,25 @@
+<div>
+  <h1>URL Monitoring</h1>
+  <div class="page-content">
+    <p *ngIf="!monitorURLs || monitorURLs.length === 0">
+      Aktuell werden keine URLs überprüft. Fügen Sie über die Form eine URL, die Sie überprüfen möchten, hinzu.
+    </p>
+    <button
+      *ngIf="!showAddForm"
+      (click)="toggleAddForm()"
+      type="button"
+      class="add-button"
+      mat-stroked-button
+      title="neue URL hinzufügen"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+    <div *ngIf="showAddForm">
+      <app-add-monitor-url (formSubmit)="saveMonitorURL($event)" (clickCancelEvent)="toggleAddForm()" [editMonitorURL]="selectedMonitorURL">
+      </app-add-monitor-url>
+    </div>
+    <div *ngIf="monitorURLs && monitorURLs.length > 0">
+      <app-monitor-url-table [monitorURLs]="monitorURLs" (deleteRow)="deleteMonitorURL($event)" (editRow)="editMonitorURL($event)"></app-monitor-url-table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="add-form-container">
+  <mat-divider></mat-divider>
+  <h3 *ngIf="!editMode">URL zum Monitoring hinzufügen</h3>
+  <h3 *ngIf="editMode">URL bearbeiten</h3>
+  <form [formGroup]="form" (ngSubmit)="onFormSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>URL</mat-label>
+      <input matInput placeholder="URL" formControlName="url" />
+      <mat-error *ngIf="form.get('url')?.invalid">Bitte geben Sie eine gültige URL ein.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Interval</mat-label>
+      <mat-select formControlName="interval">
+        <mat-option [value]="intervalOptions.DREIZIG"> 30 Sekunden </mat-option>
+        <mat-option [value]="intervalOptions.SECHZIG"> 60 Sekunden </mat-option>
+        <mat-option [value]="intervalOptions.NEUNZIG"> 90 Sekunden </mat-option>
+        <mat-option [value]="intervalOptions.HUNDERTZWANZIG"> 120 Sekunden </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="buttons-container">
+      <button type="button" mat-flat-button (click)="onClickCancel()">Abbrechen</button>
+      <button type="submit" mat-flat-button [disabled]="form.invalid" color="primary">
+        <span *ngIf="!editMode">Hinzufügen</span>
+        <span *ngIf="editMode">Aktualisieren</span>
+      </button>
+    </div>
+  </form>
+  <mat-divider></mat-divider>
+</div>
